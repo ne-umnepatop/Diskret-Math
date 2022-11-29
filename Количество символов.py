@@ -25,7 +25,7 @@ def cnt(f):
     return a
 
 
-txt='disk.txt'
+txt='input_file.txt'
 with open(f'{txt}') as f:
     print(cnt(f))
 
