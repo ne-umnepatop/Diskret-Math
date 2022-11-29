@@ -7,7 +7,8 @@ def cnt(f):
     a = []
     for str in f.readlines():
         a+=Counter(str).most_common()
-    letter = amount = []
+    letter = []
+    amount = []
     for x, y in a:
         if letter.count(x) < 1:
             letter.append(x)
