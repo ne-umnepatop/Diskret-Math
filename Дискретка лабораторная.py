@@ -2,13 +2,12 @@ from collections import Counter
 def cnt(f):
     '''Функция возвращает словарь из пар буква:количество букв.
     На вход подаётся txt файл, например, так:
-    with open('disk.txt.txt') as f:
+    with open('disk.txt') as f:
         print(cnt(f))'''
     a = []
     for str in f.readlines():
         a+=Counter(str).most_common()
-    letter = []
-    amount = []
+    letter = amount = []
     for x, y in a:
         if letter.count(x) < 1:
             letter.append(x)
@@ -26,14 +25,8 @@ def cnt(f):
 
 
 def main():
-    '''Тут основной код программы
-    Нужно:
-    1) Написать функцию подсчёта символов -- Сделано
-    2) создать функцию для шифровки
-    3) Реализовать ввод аргументов из командной строки
-    Он получит 'input_file.txt' оттуда'''
-    txt='input_file.txt'
-    with open(f'{txt}') as f:
+    input_file='input_file.txt'
+    with open(input_file) as f:
         print(cnt(f))
 
 
