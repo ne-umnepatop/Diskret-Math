@@ -1,3 +1,4 @@
+#-*-coding:cp1251-*-
 import sys
 
 parlist=[]
@@ -14,8 +15,10 @@ out_file=parlist[3]
 #encoding
 if itype=="--encode":
 	f=open(input_file)
+	x=''
 	for i in f:
-		x=i
+		x+=i
+
 	al={}
 
 	for i in x:
@@ -79,8 +82,9 @@ if itype=="--decode":
 	jo={}
 	ja={}
 	for i in range(l):
-		jo[al.split(',')[i].split(':')[0].split("'")[1]]=al.split(',')[i].split(':')[1].split("'")[1]
-		ja[al.split(',')[i].split(':')[1].split("'")[1]]=al.split(',')[i].split(':')[0].split("'")[1]
+		#jo[al.split(',')[i].split(':')[0].split("'")[1]]=al.split(',')[i].split(':')[1].split("'")[1]
+		ja[al.split(', ')[i].split(': ')[1].split("'")[1]]=al.split(', ')[i].split(': ')[0].split("'")[1]
+
 
 	out=''
 
@@ -101,6 +105,7 @@ if itype=="--decode":
 		pass
 
 
+
 	code+=' '*ma
 	i=0
 	while ('1' in code or '0' in code) and i<len(code)-ma:
@@ -109,8 +114,12 @@ if itype=="--decode":
 			for j in range(ma):
 				ho+=str(code[i+j])
 				if ho in newlist:
-					code=code.replace(ho,ja[ho],1)
-					break
+					if ja[ho]=="\\n":
+						code=code.replace(ho,'\n',1)
+
+					else:
+						code=code.replace(ho,ja[ho],1)
+						break
 
 		i+=1
 			
