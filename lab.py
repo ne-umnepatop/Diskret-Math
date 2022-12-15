@@ -59,17 +59,12 @@ def main():
     # дешифруем
     if itype == "--decode":
         input_file = open(input_file)
-        holder = ''
-        ll = []
-        for i in input_file:
-            holder += str(i)
-        ll = holder.split('\n')
         # считали кол-во различных символов
-        l = int(ll[0])
+        l = int(input_file.readline())
         # считали словарь
-        al = ll[1]
-        code = ll[2]
+        al = input_file.readline()
         # считали то, что будем расшифровывать
+        code = input_file.readlines()
         ja = {}
         for i in range(l):
             # развернули словарь кодами вперёд
@@ -104,7 +99,7 @@ def main():
                             break
             i += 1
         # пишем изменения
-        out = code[:-ma]
+        out = str(code[:-ma])
         out_file = open(out_file, 'w')
         out_file.write(out)
         out_file.close()
