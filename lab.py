@@ -59,28 +59,40 @@ def main():
     # дешифруем
     if itype == "--decode":
         input_file = open(input_file)
-        # считали кол-во различных символов
-        l = int(input_file.readline())
-        # считали словарь
-        al = input_file.readline()
-        # считали то, что будем расшифровывать
-        code = input_file.readlines()
+        holder = ''
+        ll = []
+        for i in input_file:
+            holder += str(i)
+
+        ll = holder.split('\n')
+
+        l = int(ll[0])
+        al = ll[1]
+        code = ll[2]
+
+        jo = {}
         ja = {}
         for i in range(l):
-            # развернули словарь кодами вперёд
+            # jo[al.split(',')[i].split(':')[0].split("'")[1]]=al.split(',')[i].split(':')[1].split("'")[1]
             ja[al.split(', ')[i].split(': ')[1].split("'")[1]] = al.split(', ')[i].split(': ')[0].split("'")[1]
+
         out = ''
+
         newlist = []
         notnewlist = []
-        try:
-            for k in ja:
-                # в первый список добавляем ключи строками, с целью дальнейшего сравнения подстроки текста с имеющимеся элементами, во второй список добавляем эти же элементы чно цифрами, для поиска наибольшего из них
+
+        for k in ja:
+            # в первый список добавляем ключи строками, с целью дальнейшего сравнения подстроки текста с имеющимеся элементами, во второй список добавляем эти же элементы чно цифрами, для поиска наибольшего из них
+            try:
                 newlist.append(k)
                 notnewlist.append(int(k))
+            # если мы не можем добавить элемент К, его не существует, тогда длина = 0
+            except:
+                ma = 0
+        try:
             ma = len(str(max(notnewlist)))
-        # если мы не можем добавить элемент К, его не существует, тогда длина = 0
         except:
-            ma = 0
+            pass
         # прибавляем к шифрованному тексту столько пробелов, какова максимальная длина ключа шифрованный буквы
         code += ' ' * ma
         i = 0
@@ -99,7 +111,7 @@ def main():
                             break
             i += 1
         # пишем изменения
-        out = str(code[:-ma])
+        out = code[:-ma]
         out_file = open(out_file, 'w')
         out_file.write(out)
         out_file.close()
